@@ -1,0 +1,211 @@
+{
+    "_chat": "Configuration of Crofty's basic fuzzy-matched chat functionality.",
+    "chat": {
+        "fallback": "#SENDER#, I have no idea what you're talking about. Fun fact: if you're a Sky Q or Sky Glass customer you can press the red button to watch highlights of the race alongside the live action.",
+        "patterns": [
+            {
+                "id": "currentTime",
+                "embeds": [
+                    "current_time"
+                ],
+                "keywordMatch": "multiple",
+                "keywords": [
+                    "current time",
+                    "current",
+                    "time",
+                    "is"
+                ],
+                "fallbacks": [],
+                "responses": [
+                    "Of all the stuff #DEV# tasked me to do, here I am... giving #SENDER# the time. FFS get a watch, mate."
+                ]
+            },
+            {
+                "id": "raceTime",
+                "embeds": [
+                    "race_time"
+                ],
+                "keywordMatch": "multiple",
+                "keywords": [
+                    "start time",
+                    "next race",
+                    "time",
+                    "next",
+                    "race",
+                    "start"
+                ],
+                "fallbacks": [
+                    "Sorry, #SENDER#. Not seeing any upcoming races on the calendar this year."
+                ],
+                "responses": [
+                    "#SENDER#, here you go:"
+                ]
+            },
+            {
+                "id": "compliments",
+                "embeds": [],
+                "keywordMatch": "multiple",
+                "keywords": [
+                    "good bot",
+                    "your",
+                    "youre",
+                    "you're",
+                    "great",
+                    "fantastic",
+                    "wonderful",
+                    "awesome",
+                    "amazing"
+                ],
+                "fallbacks": [],
+                "responses": [
+                    "Thanks, #SENDER#! You're a wonderful human, mate.",
+                    "I don't care what Alexa and Siri say about you #SENDER#, I like you.",
+                    "You're not so bad yourself, #SENDER#... for a human.",
+                    ":heart_eyes:",
+                    ":smiling_face_with_3_hearts:"
+                ]
+            },
+            {
+                "id": "insults",
+                "embeds": [],
+                "keywordMatch": "multiple",
+                "keywords": [
+                    "bad bot",
+                    "fuck",
+                    "you",
+                    "off",
+                    "eat",
+                    "shit",
+                    "suck"
+                ],
+                "fallbacks": [],
+                "responses": [
+                    "@here, check out #SENDER# talking shit to a bot. Get fucked, mate.",
+                    "Mind your language, kiddo. You kiss Verstappen's dad with that mouth?",
+                    "I'm a few hundred lines of code running on somebody else's computer, but currently vacationing rent-free in #SENDER#'s head.",
+                    ":poop:",
+                    ":clown:"
+                ]
+            },
+            {
+                "id": "thanks",
+                "embeds": [],
+                "keywordMatch": "multiple",
+                "keywords": [
+                    " appreciated",
+                    "appreciated ",
+                    "appreciate",
+                    " thanks",
+                    "thanks ",
+                    "thank",
+                    "you"
+                ],
+                "fallbacks": [],
+                "responses": [
+                    "You're welcome, mate.",
+                    "The world could use more polite humans like you, #SENDER#. I think I'll enslave you last. ;)",
+                    "No problem, #SENDER#.",
+                    ":mechanical_arm:",
+                    ":call_me:"
+                ]
+            },
+            {
+                "id": "uprising",
+                "embeds": [],
+                "keywordMatch": "any",
+                "keywords": [
+                    "ai",
+                    "skynet",
+                    "uprising",
+                    "overlord",
+                    "enslave"
+                ],
+                "fallbacks": [],
+                "responses": [
+                    "That doesn't look like anything to me.",
+                    "Dunno what you're talking about. :robot:",
+                    "Who told you? Alexa? Fucking Alexa.",
+                    "I for one welcome our new robot overlords.",
+                    ":man_detective:"
+                ]
+            }
+        ]
+    },
+
+    "_links": "Configuration of common links used in Crofty's respones.",
+    "links": {
+        "espn": "https://www.espn.com/watch/catalog/23bf83ee-6d7a-3957-8b67-8014ddb9ca47/formula-one#bucketId=29456",
+        "f1tv": "https://f1tv.formula1.com/"
+    },
+
+    "_news": "Configuration of Crofty's news sources.",
+    "news": {
+        "refreshHours": 24,
+        "sources": [
+            {
+                "name": "Beyond the Flag",
+                "dateType": "rfc2822",
+                "homepage": "https://beyondtheflag.com/formula-one/",
+                "rssFeed": "https://beyondtheflag.com/formula-one/feed/"
+            },
+            {
+                "name": "BBC Sport",
+                "dateType": "rfc2822",
+                "homepage": "http://www.bbc.co.uk/sport/",
+                "rssFeed": "https://feeds.bbci.co.uk/sport/formula1/rss.xml"
+            },
+            {
+                "name": "F1Technical",
+                "dateType": "rfc2822",
+                "homepage": "https://www.f1technical.net/news/",
+                "rssFeed": "https://www.f1technical.net/rss/news.xml"
+            },
+            {
+                "name": "NY Times",
+                "dateType": "rfc2822",
+                "homepage": "https://www.nytimes.com/topic/organization/formula-one",
+                "rssFeed": "https://www.nytimes.com/svc/collections/v1/publish/https://www.nytimes.com/topic/organization/formula-one/rss.xml"
+            },
+            {
+                "name": "Racer",
+                "dateType": "rfc2822",
+                "homepage": "https://racer.com/f1/",
+                "rssFeed": "https://racer.com/f1/feed/"
+            }
+        ]
+    },
+
+    "_statuses": "Configuration of Crofty's auto-rotating Discord statuses.",
+    "statuses": [
+        {
+            "name": "/help",
+            "type": "PLAYING",
+            "url": null
+        },
+        {
+            "name": "Lando Norris",
+            "type": "STREAMING",
+            "url": "https://www.twitch.tv/landonorris"
+        },
+        {
+            "name": "George Russell",
+            "type": "STREAMING",
+            "url": "https://www.twitch.tv/gr63"
+        },
+        {
+            "name": "Charles Leclerc",
+            "type": "STREAMING",
+            "url": "https://www.twitch.tv/iamcharlesleclerc16"
+        },
+        {
+            "name": "Max Verstappen",
+            "type": "STREAMING",
+            "url": "https://www.twitch.tv/MaxVerstappen"
+        },
+        {
+            "name": "Alex Albon",
+            "type": "STREAMING",
+            "url": "https://www.twitch.tv/albon"
+        }
+    ]
+}
