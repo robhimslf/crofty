@@ -39,6 +39,14 @@ export enum ChatPatternMatch {
 }
 
 /**
+ * Interface contract of an object containing configurations for Crofty's race
+ * thread auto-creation functionality.
+ */
+export interface IConfigAutoThreads {
+    advanceDays: number;
+}
+
+/**
  * Interface contract of an object containing a single, contextual configuration
  * for Crofty's basic fuzzy-matched chat functionality.
  */
@@ -64,6 +72,7 @@ export interface IConfigChat {
  * static links.
  */
 export interface IConfigLinks {
+    dotd: string;
     espn: string;
     f1tv: string;
 }
@@ -93,6 +102,7 @@ export interface IConfigNews {
  * configuration of Crofty as read from the `crofty.json` file.
  */
 export interface IConfig {
+    autoThreads: IConfigAutoThreads;
     chat: IConfigChat;
     links: IConfigLinks;
     news: IConfigNews;
@@ -111,6 +121,13 @@ export class Config implements IConfig {
     private static filePath: string = '../../crofty.json';
 
     /**
+     * Configuration of Crofty's race thread auto-creation functionality.
+     */
+    public readonly autoThreads: IConfigAutoThreads = {
+        advanceDays: 4
+    }
+
+    /**
      * Configuration of Crofty's chat functionality.
      */
     public readonly chat: IConfigChat = {
@@ -122,6 +139,7 @@ export class Config implements IConfig {
      * Configuration of Crofty's commonly-used static links.
      */
     public readonly links: IConfigLinks = {
+        dotd: '#',
         espn: '#',
         f1tv: '#'
     }
@@ -151,6 +169,7 @@ export class Config implements IConfig {
         const data = readFileSync( filePath, 'utf8' );
         const json: IConfig = JSON.parse( data );
 
+        this.autoThreads = json.autoThreads;
         this.chat = json.chat;
         this.links = json.links;
         this.news = json.news;

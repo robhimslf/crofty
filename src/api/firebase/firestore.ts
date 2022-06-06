@@ -7,49 +7,19 @@ import {
     Query
 } from 'firebase-admin/firestore';
 import { firebase } from '../../utilities/index.js';
-
-/**
- * Defines a type of allowed Wiki links held in the database.
- */
-export type F1WikiLinkType =
-    'circuit' |
-    'constructor' |
-    'driver' |
-    'event';
-
-/**
- * Interface contract of a response object containing a Discord guild
- * configuration for Crofty.
- */
-export interface IDiscordGuildConfig {
-    guildId: string;
-    autoEventThreadChannelId: string | null;
-    autoNewsChannelId: string | null;
-    isAutoEventThreadEnabled: boolean;
-    isAutoNewsEnabled: boolean;    
-}
-
-/**
- * Interface contract of a response object containing a Discord guild
- * member's configuration for Crofty.
- */
-export interface IDiscordGuildMemberConfig {
-    guildId: string;
-    guildMemberId: string;
-    isAutoEventThreadNotify: boolean;
-}
-
-/**
- * Interface contract of a response object containing a URL for a Formula 1
- * Wikipedia reference.
- */
-export interface IF1WikiLink {
-    type: F1WikiLinkType;
-    originalUrl: string;
-    shortUrl: string;
-}
+import type {
+    F1WikiLinkType,
+    IDiscordGuildConfig,
+    IDiscordGuildMemberConfig,
+    IF1WikiLink
+} from './types.js';
 
 export class FirestoreAPI {
+
+    /**
+     * Internal singleton reference to the initialized API.
+     */
+    private static instance: FirestoreAPI | undefined;
 
     /**
      * Instance of the Google Firestore client.
@@ -70,6 +40,19 @@ export class FirestoreAPI {
      * Firestore collection containing Formula 1 Wikipedia links.
      */
     private wikiLinks: CollectionReference<IF1WikiLink> | undefined;
+
+    /**
+     * Singleton instance of the initialized API.
+     */
+    public static get Instance(): FirestoreAPI {
+        if ( !FirestoreAPI.instance )
+            FirestoreAPI.instance = new FirestoreAPI(
+                undefined,
+                new firebase.FirebaseCredentials()
+            );
+
+        return FirestoreAPI.instance;
+    }
 
     /**
      * Constructs and initializes a Firebase client.
@@ -690,10 +673,3 @@ export class FirestoreAPI {
         return this.firestore.collection( name ) as CollectionReference<T>;
     }
 }
-
-/**
- * Singleton instance of the Firestore API.
- */
-export const firestoreAPI = new FirestoreAPI(
-    undefined,
-    new firebase.FirebaseCredentials() );

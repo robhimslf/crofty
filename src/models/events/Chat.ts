@@ -11,7 +11,7 @@ import {
     interpolateFromMessage,
     markdown
 } from '../../utilities/index.js';
-import { f1Api } from '../../api/index.js';
+import { ergastAPI } from '../../api/index.js';
 
 export class Chat {
 
@@ -142,7 +142,7 @@ export class Chat {
      */
     private async getRaceStartEmbed(): Promise<MessageEmbed | undefined> {
         const now = DateTime.utc();
-        const upcoming = await f1Api.getScheduledEvents( now.year );
+        const upcoming = await ergastAPI.getScheduledEvents( now.year );
         const nextRace = upcoming
             .map( race => {
                 const date = ( race.time )
@@ -163,6 +163,7 @@ export class Chat {
             f1tvLink: config.links.f1tv,
             raceName: markdown.formatF1EventName( nextRace ),
             raceDate: markdown.formatF1EventDate( nextRace ),
+            raceTime: `<t:${nextRace.dateTime!.toSeconds()}:R>`,
             year: now.year.toString(),
         };
 

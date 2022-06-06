@@ -1,4 +1,5 @@
 import { DateTime, DateTimeFormatOptions } from 'luxon';
+import { interpolate } from './interpolate.js';
 import * as constants from './constants.js';
 import {
     IF1Circuit,
@@ -23,23 +24,29 @@ import {
  * @param {boolean} drivers 
  * @param {boolean} constructors 
  * @param {boolean} withLink 
+ * @param {boolean} withLinkAnchor 
  * @returns {string}
  */
 export function formatF1ChampionshipName(
     season: string,
     drivers: boolean = false,
     constructors: boolean = false,
-    withLink: boolean = false ): string {
+    withLink: boolean = false,
+    withLinkAnchor: boolean = false ): string {
     
-    let name = `${season} `;
-    if ( constructors )
-        name += constants.Strings.F1WorldConstructorsChampionship;
-    else if ( drivers )
-        name += constants.Strings.F1WorldDriversChampionship;
-    else
-        name += constants.Strings.F1WorldChampionship;
+    let name = `${season} `,
+        link = interpolate( constants.Wikipedia.UrlF1Championship,
+            { season: Number( season )});
 
-    const link = 'https://wikipedia.com';
+    if ( constructors ) {
+        name += constants.Strings.F1WorldConstructorsChampionship;
+    } else if ( drivers ) {
+        name += constants.Strings.F1WorldDriversChampionship;
+        if ( withLinkAnchor )
+            link = `${link}#${constants.Wikipedia.AnchorF1ChampionshipStandings}`;
+    } else {
+        name += constants.Strings.F1WorldChampionship;
+    }
 
     return ( withLink )
         ? `[${name}](${link})`

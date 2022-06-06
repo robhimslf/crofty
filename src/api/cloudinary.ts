@@ -17,9 +17,24 @@ export type F1ImageType =
 export class CloudinaryAPI {
 
     /**
+     * Internal singleton reference to the initialized API.
+     */
+    private static instance: CloudinaryAPI | undefined;
+
+    /**
      * Folder in which all images are held.
      */
     private folder: string | undefined;
+
+    /**
+     * Singleton instance of the initialized API.
+     */
+    public static get Instance(): CloudinaryAPI {
+        if ( !CloudinaryAPI.instance )
+            CloudinaryAPI.instance = new CloudinaryAPI();
+
+        return CloudinaryAPI.instance;
+    }
 
     /**
      * Constructs and configures access to Cloudinary for Crofty's image storage
@@ -36,10 +51,10 @@ export class CloudinaryAPI {
         api_secret?: string,
         folder?: string ) {
         
-        cloud_name = cloud_name || environment.CloudinaryName;
-        api_key = api_key || environment.CloudinaryKey;
-        api_secret = api_secret || environment.CloudinarySecret;
-        folder = folder || environment.CloudinaryFolder;
+        cloud_name = cloud_name ?? environment.CloudinaryName;
+        api_key = api_key ?? environment.CloudinaryKey;
+        api_secret = api_secret ?? environment.CloudinarySecret;
+        folder = folder ?? environment.CloudinaryFolder;
 
         if ( !cloud_name ||
             !api_key ||
@@ -131,8 +146,3 @@ export class CloudinaryAPI {
         });
     }
 }
-
-/**
- * Singleton instance of the Cloudinary image storage API.
- */
-export const cloudinaryAPI = new CloudinaryAPI();

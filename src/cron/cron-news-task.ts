@@ -3,7 +3,8 @@ import { Client } from 'discordx';
 import { EmbedFieldData, Guild, MessageEmbed } from 'discord.js';
 import Parser from 'rss-parser';
 import { config, constants, dateTime, interpolate } from '../utilities/index.js';
-import { CronTaskBase, ICronTask } from './CronTaskBase.js';
+import { FirestoreAPI } from '../api/index.js';
+import { CronTaskBase, ICronTask } from './cron-task-base.js';
 
 /**
  * Interface contract of an object containing properties of a Formula 1 news item.
@@ -37,7 +38,34 @@ export class NewsCronTask extends CronTaskBase implements ICronTask {
         const newsItems = await this.getNewsItems();
         if ( newsItems.length > 0 ) {
             
+            const guilds = await FirestoreAPI.Instance.getGuildsWithAutoNewsReports();
+            if ( guilds.length > 0 ) {
+
+                const embed = this.getNewsEmbed( newsItems );
+                for ( let i = 0; i < guilds.length; i++ ) {
+
+                    const config = guilds[ i ];
+                    const guild = this.client.guilds.cache.get( config.guildId );
+                    const channelId = config.autoNewsChannelId;
+
+                    if ( guild && channelId )
+                        await this.createTopic( guild, channelId, embed );
+                }
+            }
         }
+    }
+
+    /**
+     * Sends a message to a text channel in a guild server with a message embed.
+     * 
+     * @param {Guild} guild 
+     * @param {string} channelId 
+     * @param {MessageEmbed} embed 
+     */
+    private async createTopic( guild: Guild, channelId: string, embed: MessageEmbed ) {
+        const channel = await guild.channels.fetch( channelId );
+        if ( channel && channel.isText() )
+            await channel.send({ embeds: [ embed ]});
     }
 
     /**

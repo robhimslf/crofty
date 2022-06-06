@@ -13,13 +13,16 @@ import {
     stringToBoolean,
     stringValue
 } from '../utilities/index.js';
-import { firestoreAPI } from '../api/index.js';
+import { FirestoreAPI } from '../api/index.js';
 
 @Discord()
 @Permission( false )
 @Permission( discord.administrativeRoleResolver )
-@SlashGroup( 'server_config', `Configure Crofty's server-level functionality. **Requires administrative rights on the server.**` )
-class config {
+@SlashGroup({
+    name: 'server',
+    description: `Configure Crofty's server-level functionality. **Requires administrative rights on the server.**`
+})
+class server {
 
     /**
      * Handles configuration of race thread auto-create for a guild (server).
@@ -28,7 +31,8 @@ class config {
      * @param {string} channelParam 
      * @param {CommandInteraction} interaction 
      */
-    @Slash( 'race_threads', { description: `Configuration of Crofty's race thread auto-creation functionality.` })
+    @Slash( 'autothread', { description: `Configuration of Crofty's race thread auto-creation functionality.` })
+    @SlashGroup( 'server' )
     async toggleRaceThreadCreation(
         @SlashChoice( 'yes', 'no' )
         @SlashOption( 'enabled', { description: 'Should Crofty auto-create race threads?', required: false }) enabledParam: string,
@@ -50,7 +54,7 @@ class config {
                 throw new Error( error );
             }
 
-            const config = await firestoreAPI.getGuildConfigById( interaction.guildId );
+            const config = await FirestoreAPI.Instance.getGuildConfigById( interaction.guildId );
 
             // Resolve the channel...
             let channel: discord.DiscordChannelType | undefined;
@@ -98,7 +102,7 @@ class config {
 
             // Create or modify needed.
             else {
-                const updated = await firestoreAPI.createUpdateGuildConfig(
+                const updated = await FirestoreAPI.Instance.createUpdateGuildConfig(
                     interaction.guildId,
                     enabled,
                     channel?.id
@@ -117,7 +121,7 @@ class config {
 
             await interaction.reply( `Race thread auto-creation is **${enabledReply.toUpperCase()}**, ${channelReply}` );
         } catch ( err ) {
-            console.warn( `🛑 Failed '/server_config race_threads' command.`, err );
+            console.warn( `🛑 Failed '/server autothread' command.`, err );
             await interaction.reply( error );
         }
     }

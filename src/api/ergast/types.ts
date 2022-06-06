@@ -1,15 +1,4 @@
 import { DateTime } from 'luxon';
-import fetch from 'node-fetch';
-
-/**
- * Seasonal parameter type when requesting qualifying or race results.
- */
-export type F1Season = 'current' | number;
-
- /**
-  * Round parameter type when requesting qualifying or race results.
-  */
-export type F1Round = 'last' | number;
 
 /**
  * Interface contract of a response object containing geographic location details
@@ -277,143 +266,66 @@ export interface IF1TimeValue {
 }
 
 /**
- * Service providing access to current and historical Formula 1 data using the
- * Ergast API.
+ * Defines interface instance-check functions for Formula 1 response objects
+ * returned by the Ergast API.
  */
-export class ErgastAPI {
+export const isF1ObjectInstanceOf = {
 
     /**
-     * API URL prefix.
-     */
-    private static ApiBase = 'http://ergast.com/api/f1';
-
-    /**
-     * Fetches results of a Formula 1 World Constructors' Championship by season.
+     * Whether this object is an instance of `IF1ConstructorStanding`.
      * 
-     * @param {F1Season} season 
-     * @returns {Promise<IF1ConstructorStandings | undefined>}
+     * @param {any} obj 
+     * @returns {boolean}
      */
-    public async getConstructorSeasonStandings( season: F1Season )
-        : Promise<IF1ConstructorStandings | undefined> {
-        
-        const response = await this.call<IF1ConstructorStandingsResponse>(
-            `${season}/constructorStandings` );
-        
-        return ( response && response.MRData.StandingsTable.StandingsLists.length > 0 )
-            ? response.MRData.StandingsTable.StandingsLists[ 0 ]
-            : undefined;
-    }
+    constructorStanding: function( obj: any )
+        : obj is IF1ConstructorStanding {
+        return 'Constructor' in obj;
+    },
 
     /**
-     * Fetches results of a Formula 1 driver by season and name.
+     * Whether this object is an instance of `IF1DriverStanding`.
      * 
-     * @param {F1Season} season 
-     * @param {string} driver 
-     * @returns {Promise<IF1RaceEvent[]>}
+     * @param {any} obj 
+     * @returns {boolean}
      */
-    public async getDriverSeasonResults( season: F1Season, driver: string )
-        : Promise<IF1RaceEvent[]> {
-        
-        const response = await this.call<IF1RaceEventResponse>(
-            `${season}/drivers/${driver}/results` );
-
-        return ( response && response.MRData.RaceTable.Races )
-            ? response.MRData.RaceTable.Races
-            : [];
-    }
+    driverStanding: function( obj: any )
+        : obj is IF1DriverStanding {
+        return 'Constructors' in obj;
+    },
 
     /**
-     * Fetches results of a Formula 1 World Drivers' Championship by season.
+     * Whether this object is an instance of `IF1EventResult`.
      * 
-     * @param {F1Season} season 
-     * @returns {Promise<IF1DriverStandings | undefined>}
+     * @param {any} obj 
+     * @returns {boolean}
      */
-    public async getDriverSeasonStandings( season: F1Season )
-        : Promise<IF1DriverStandings | undefined> {
-        
-        const response = await this.call<IF1DriverStandingsResponse>(
-            `${season}/driverStandings` );
-        
-        return ( response && response.MRData.StandingsTable.StandingsLists.length > 0 )
-            ? response.MRData.StandingsTable.StandingsLists[ 0 ]
-            : undefined;
-    }
+    eventResult: function( obj: any )
+        : obj is IF1EventResult {
+        return (
+            'Driver' in obj &&
+            'Constructor' in obj
+        );
+    },
 
     /**
-     * Fetches results of a Formula 1 qualifying by season and round.
+     * Whether this object is an instance of `IF1QualifyingEvent`.
      * 
-     * @param {F1Season} season 
-     * @param {F1Round} round 
-     * @returns {Promise<IF1QualifyingEvent | undefined>}
+     * @param {any} obj 
+     * @returns {boolean}
      */
-    public async getQualifyingResult( season: F1Season, round: F1Round )
-        : Promise<IF1QualifyingEvent | undefined> {
-        
-        const response = await this.call<IF1QualifyingEventResponse>(
-            `${season}/${round}/qualifying` );
-        
-        return ( response && response.MRData.RaceTable.Races )
-            ? response.MRData.RaceTable.Races[ 0 ]
-            : undefined;
-    }
+    qualifyingEvent: function( obj: any )
+        : obj is IF1QualifyingEvent {
+        return 'QualifyingResults' in obj;
+    },
 
     /**
-     * Fetches results of a Formula 1 race event by season and round.
+     * Whether this object is an instance of `IF1RaceEvent`.
      * 
-     * @param {F1Season} season 
-     * @param {F1Round} round 
-     * @returns {Promise<IF1RaceEvent | undefined>}
+     * @param {any} obj 
+     * @returns {boolean}
      */
-    public async getRaceResult( season: F1Season, round: F1Round )
-        : Promise<IF1RaceEvent | undefined> {
-        
-        const response = await this.call<IF1RaceEventResponse>(
-            `${season}/${round}/results` );
-        
-        return ( response && response.MRData.RaceTable.Races )
-            ? response.MRData.RaceTable.Races[ 0 ]
-            : undefined;
+    raceEvent: function( obj: any )
+        : obj is IF1RaceEvent {
+        return 'Circuit' in obj;
     }
-
-    /**
-     * Fetches a collection of Formula 1 race events by season.
-     * 
-     * @param {F1Season} season 
-     * @returns {Promise<IF1ScheduledEvent[]>}
-     */
-    public async getScheduledEvents( season: F1Season ): Promise<IF1ScheduledEvent[]> {
-        const response = await this.call<IF1ScheduledEventResponse>( `${season}` );
-
-        return ( response && response.MRData.RaceTable.Races )
-            ? response.MRData.RaceTable.Races
-            : [];
-    }
-
-    /**
-     * Calls the Ergast Formula 1 API, returning the strongly-typed response
-     * body if valid.
-     * 
-     * @param {string} url 
-     * @returns {Promise<T | undefined>}
-     */
-    private async call<T>( url: string ): Promise<T | undefined> {
-        let result: T | undefined;
-
-        try {
-            url = `${ErgastAPI.ApiBase}/${url}.json`;
-
-            const response = await fetch( url );
-            const json: any = await response.json();
-            result = json as T;
-        } catch ( err ) {
-            console.warn( `🛑 Failed calling "${url}".`, err );
-        }
-
-        return result;
-    }
-}
-
-/**
- * Singleton instance of the Formula 1 API using Ergast.
- */
-export const ergastAPI = new ErgastAPI();
+};

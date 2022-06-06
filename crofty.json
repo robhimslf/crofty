@@ -1,4 +1,9 @@
 {
+    "_autoThreads": "Configuration of Crofty's race thread auto-creation functionality.",
+    "autoThreads": {
+        "advanceDays": 4
+    },
+
     "_chat": "Configuration of Crofty's basic fuzzy-matched chat functionality.",
     "chat": {
         "fallback": "#SENDER#, I have no idea what you're talking about. Fun fact: if you're a Sky Q or Sky Glass customer you can press the red button to watch highlights of the race alongside the live action.",
@@ -134,6 +139,7 @@
 
     "_links": "Configuration of common links used in Crofty's respones.",
     "links": {
+        "dotd": "https://www.formula1.com/en/vote.html",
         "espn": "https://www.espn.com/watch/catalog/23bf83ee-6d7a-3957-8b67-8014ddb9ca47/formula-one#bucketId=29456",
         "f1tv": "https://f1tv.formula1.com/"
     },

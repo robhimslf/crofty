@@ -1,6 +1,6 @@
 import { Client } from 'discordx';
 import { config, random } from '../utilities/index.js';
-import { CronTaskBase, ICronTask } from './CronTaskBase.js';
+import { CronTaskBase, ICronTask } from './cron-task-base.js';
 
 /**
  * A scheduled cron task that periodically updates Crofty's current status.

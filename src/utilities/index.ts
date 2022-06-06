@@ -6,4 +6,5 @@ export * from './environment.js';
 export * as firebase from './firebase.js';
 export * from './helpers.js';
 export * from './interpolate.js';
+export * from './link-shortener.js';
 export * as markdown from './markdown.js';

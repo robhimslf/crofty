@@ -7,7 +7,7 @@ class help {
 
     @Slash( 'help', { description: 'Get help using Crofty.' })
     async help(
-        @SlashChoice( 'config', 'results', 'standings' )
+        @SlashChoice( 'me', 'stats', 'server' )
         @SlashOption( 'category', { description: `The category within Crofty's help system to view.`, required: false }) category: string,
         interaction: CommandInteraction ) {
 
