@@ -14,8 +14,6 @@
         "resolveJsonModule": true
     },
     "exclude": [
-        "__tests__",
-        "build",
-        "node_modules"
+        "__tests__"
     ]
 }
