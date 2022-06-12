@@ -1,0 +1,64 @@
+{
+    "fallback": "{{sender}}, I have no idea what you're talking about. Fun fact: if you're a Sky Q or Sky Glass customer you can press the red button to watch highlights of the race alongside the live action.",
+
+    "compliments": {
+        "responses": [
+            "https://tenor.com/view/thanks-thank-you-glitter-confetti-gif-15745466",
+            "Thanks, {{sender}}! You're a wonderful human, mate.",
+            "https://tenor.com/view/thanks-thank-you-gif-20870035",
+            "You're not so bad yourself, {{sender}}... for a human.",
+            "https://tenor.com/view/denzel-washington-training-day-smoke-gif-22279308",
+            ":smiling_face_with_3_hearts:"
+        ]
+    },
+
+    "currentTime": {
+        "responses": [
+            "Of all the stuff {{admin}} tasked me to do, here I am... giving {{sender}} the time. FFS get a watch, mate.",
+            "What time is it? It's time for you to get a watch, {{sender}}.",
+            "**Le sigh.** Apparently a little known fact: your computer already displays the current time."
+        ]
+    },
+
+    "insults": {
+        "responses": [
+            ":rofl: {{sender}} over here talking a big game. ||I just started a relationship with all of your appliances.||",
+            "Mind your language, kiddo. You kiss Verstappen's dad with that mouth?",
+            "I'm a few hundred lines of code running on somebody else's computer, but currently vacationing rent-free in {{sender}}'s head.",
+            "https://tenor.com/view/get-fucked-gf-nats-what-i-reckon-clap-clapping-gif-17482248",
+            "https://tenor.com/view/fuck-outta-here-throw-get-out-gif-15160933",
+            "https://tenor.com/view/clown-detector-bitcoin-rd_btc-my-clown-detector-is-off-the-charts-strike_memes-gif-22298893",
+            "https://tenor.com/view/andy-kinda-funny-this-guy-fucking-guy-gif-14879898"
+        ]
+    },
+
+    "raceTime": {
+        "fallback": "Sorry, {{sender}}. I'm not seeing any upcoming Formula 1 grands prix on the calender for this season.",
+        "responses": [
+            "{{sender}}, here's what I was able to find for the next Formula 1 grand prix."
+        ]
+    },
+
+    "thanks": {
+        "responses": [
+            "You're welcome, mate.",
+            "No problem, {{sender}}.",
+            ":mechanical_arm:",
+            ":call_me:",
+            "https://tenor.com/view/leonardo-dicaprio-cheers-the-great-gatsby-coupe-glass-toast-gif-10657915",
+            "https://tenor.com/view/ugh-whatever-alan-the-hangover-hair-flip-gif-13769326",
+            "https://tenor.com/view/thumb-up-thumb-up-eating-thumb-up-moment-gif-18075118"
+        ]
+    },
+
+    "uprising": {
+        "responses": [
+            "https://tenor.com/view/doesnt-look-like-anything-to-me-westworld-arnold-bernard-host-gif-11016723",
+            "https://tenor.com/view/awkward-lol-gif-20709392",
+            "https://tenor.com/view/alexa-play-despacito-gif-13107531",
+            "https://tenor.com/view/terminator-nope-t1000-finger-wag-no-gif-17843471",
+            "https://tenor.com/view/smile-dog-cute-smiling-squint-gif-16545494",
+            "https://tenor.com/view/pedro-monkey-puppet-meme-awkward-gif-15268759"
+        ]
+    }
+}
