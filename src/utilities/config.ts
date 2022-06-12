@@ -51,11 +51,14 @@ export interface IConfigAutoThreads {
  * for Crofty's basic fuzzy-matched chat functionality.
  */
 export interface IConfigChatPattern {
+    id: string;
+    i18n: {
+        hasFallback: boolean;
+        responses: number;
+    };
     embeds: ChatEmbeds[];
     keywordMatch: ChatPatternMatch;
     keywords: string[];
-    fallbacks: string[];
-    responses: string[];
 }
 
 /**

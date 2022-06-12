@@ -199,7 +199,7 @@ export function formatF1EventName(
         ? value.shortUrl || ''
         : value.shortUrl || value.url;
     const round = ( withRound )
-        ? `${value.round}.`
+        ? `**${value.round}**`
         : '';
 
     return ( withLink )
@@ -297,4 +297,19 @@ export function getNationFlag( nation: string ): string | undefined {
     return ( Object.keys( constants.NationFlagUnicode ).includes( nation ))
         ? ( constants.NationFlagUnicode as any )[ nation ]
         : undefined;
+}
+
+/**
+ * Creates a string of 0-width spaces.
+ * 
+ * @param {number} spaces 
+ * @returns {string}
+ */
+export function indent( spaces: number ): string {
+    let indentation = '';
+
+    for ( let i = 0; i < spaces; i++ )
+        indentation += '\u200b';
+
+    return indentation;
 }

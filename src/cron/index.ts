@@ -1,10 +1,9 @@
 import cron from 'node-cron';
-import { scheduleJob } from 'node-schedule';
 import { Client } from 'discordx';
-import type { IScheduledTask } from './scheduled-task-base.js';
 import type { ICronTask } from './cron-task-base.js';
 import { NewsCronTask } from './cron-news-task.js';
 import { StatusCronTask } from './cron-status-task.js';
+import { RaceThreadCronTask } from './cron-race-thread-task.js';
 
 /**
  * Scheduled task execution handler.
@@ -12,20 +11,9 @@ import { StatusCronTask } from './cron-status-task.js';
 class Cron {
 
     /**
-     * Instance of the Discord client against which precise run-once scheduled
-     * tasks should execute.
-     */
-    private client: Client;
-
-    /**
      * Registry of scheduled cron tasks.
      */
     private cronTasks: ICronTask[] = [];
-
-    /**
-     * Registry of precise run-once scheduled tasks.
-     */
-    private scheduledTasks: IScheduledTask[] = [];
 
     /**
      * Constructs and registers scheduled tasks to be executed.
@@ -33,33 +21,11 @@ class Cron {
      * @param {Client} client 
      */
     constructor( client: Client ) {
-        this.client = client;
-
         this.cronTasks = [
             new StatusCronTask( client ),
-            new NewsCronTask( client )
+            new NewsCronTask( client ),
+            new RaceThreadCronTask( client )
         ];
-    }
-
-    /**
-     * Registers a precise run-once scheduled task.
-     * 
-     * @param {IScheduledTask} scheduledTask 
-     */
-    scheduleTask( scheduledTask: IScheduledTask ) {
-        if ( !this.scheduledTasks.some( st => st.schedule === scheduledTask.schedule )) {
-            scheduleJob(
-                scheduledTask.schedule,
-                async () => {
-                    await scheduledTask.run( this.client );
-
-                    const idx = this.scheduledTasks.findIndex( st =>
-                        st.schedule === scheduledTask.schedule );
-                    if ( idx > -1 )
-                        this.scheduledTasks.splice( idx, 1 );
-                }
-            );
-        }
     }
 
     /**

@@ -19,6 +19,9 @@ export enum Strings {
     InvalidRound = `The provided round value is invalid. Try a 1- or 2-digit number or the word 'last'.`,
     InvalidSeason = `The provided season value is invalid. Try a 4-digit year or the word 'current'.`,
     LocalStart = 'Local Start',
+    StatusConfigUpdated = 'Updated!',
+    StatusConfigNoChange = 'No change.',
+    StatusConfigFailed = 'Uh oh! Something went wrong.',
     SymbolFastestLap = '🔸',
     SymbolQualifyingQ1Knockout = '🔺',
     SymbolQualifyingQ2Knockout = '🔹'

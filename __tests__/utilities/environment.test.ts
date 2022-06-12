@@ -1,4 +1,4 @@
-import { environment } from '../../src/utilities/environment';
+import { environment } from '../../src/utilities/environment.js';
 
 describe( 'utilities/environment', () => {
     test( 'should be populated from `.env` file', () => {

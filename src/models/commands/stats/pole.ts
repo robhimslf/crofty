@@ -91,7 +91,7 @@ export class PoleStats extends CommandBase implements ICommandAsync {
         const events = items.map( i =>
             markdown.formatF1EventName( i, true, true, true ));
         const drivers = items.map( i =>
-            `${markdown.formatF1DriverName( i.QualifyingResults[ 0 ].Driver, true )}, ${markdown.formatF1ConstructorName( i.QualifyingResults[ 0 ].Constructor, true )}` );
+            `${markdown.formatF1DriverName( i.QualifyingResults[ 0 ].Driver, true, true )}, ${markdown.formatF1ConstructorName( i.QualifyingResults[ 0 ].Constructor, true, true )}` );
         const bests = items.map( i => {
             const result = i.QualifyingResults[ 0 ];
             let value: string = constants.Strings.DidNotQualify;

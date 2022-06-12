@@ -134,6 +134,24 @@ export function random<T>( collection: T[] ): T | undefined {
 }
 
 /**
+ * Generates a slug from a string by replacing spaces, dashes, and underscores
+ * with dashes, and removing special characters.
+ * 
+ * Example: `Hello World!` becomes `hello-world`.
+ * 
+ * @param {string} value 
+ * @returns {string}
+ */
+export function slugify( value: string ): string {
+    return value
+        .toLowerCase()
+        .trim()
+        .replace( /[^\w\s-]/g, '' )
+        .replace( /[\s_-]+/g, '-' )
+        .replace( /^-+|-+$/g, '' );
+}
+
+/**
  * Converts a potential string value to its boolean equivalent.
  * 
  * *Used primarily to sanitize and normalize command inputs.*

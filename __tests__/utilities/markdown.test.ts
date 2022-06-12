@@ -1,7 +1,5 @@
-import {
-    constants,
-    markdown
-} from '../../src/utilities';
+import * as constants from '../../src/utilities/constants.js';
+import * as markdown from '../../src/utilities/markdown.js';
 import {
     IF1Circuit,
     IF1Constructor,
@@ -23,7 +21,7 @@ describe( 'utilities/markdown', () => {
         result = markdown.formatF1ChampionshipName( '2021', true, false );
         expect( result ).toEqual( expected );
 
-        expected = `[1951 ${constants.Strings.F1WorldChampionship}](https://wikipedia.com`;
+        expected = `[1951 ${constants.Strings.F1WorldChampionship}](https://en.wikipedia.org`;
         result = markdown.formatF1ChampionshipName( '1951', false, false, true );
         expect( result ).toContain( expected );
     });

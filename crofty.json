@@ -10,6 +10,10 @@
         "patterns": [
             {
                 "id": "currentTime",
+                "i18n": {
+                    "hasFallback": false,
+                    "responses": 3
+                },
                 "embeds": [
                     "current_time"
                 ],
@@ -19,14 +23,14 @@
                     "current",
                     "time",
                     "is"
-                ],
-                "fallbacks": [],
-                "responses": [
-                    "Of all the stuff #DEV# tasked me to do, here I am... giving #SENDER# the time. FFS get a watch, mate."
                 ]
             },
             {
                 "id": "raceTime",
+                "i18n": {
+                    "hasFallback": true,
+                    "responses": 1
+                },
                 "embeds": [
                     "race_time"
                 ],
@@ -38,16 +42,14 @@
                     "next",
                     "race",
                     "start"
-                ],
-                "fallbacks": [
-                    "Sorry, #SENDER#. Not seeing any upcoming races on the calendar this year."
-                ],
-                "responses": [
-                    "#SENDER#, here you go:"
                 ]
             },
             {
                 "id": "compliments",
+                "i18n": {
+                    "hasFallback": false,
+                    "responses": 6
+                },
                 "embeds": [],
                 "keywordMatch": "multiple",
                 "keywords": [
@@ -60,18 +62,14 @@
                     "wonderful",
                     "awesome",
                     "amazing"
-                ],
-                "fallbacks": [],
-                "responses": [
-                    "Thanks, #SENDER#! You're a wonderful human, mate.",
-                    "I don't care what Alexa and Siri say about you #SENDER#, I like you.",
-                    "You're not so bad yourself, #SENDER#... for a human.",
-                    ":heart_eyes:",
-                    ":smiling_face_with_3_hearts:"
                 ]
             },
             {
                 "id": "insults",
+                "i18n": {
+                    "hasFallback": false,
+                    "responses": 8
+                },
                 "embeds": [],
                 "keywordMatch": "multiple",
                 "keywords": [
@@ -82,18 +80,14 @@
                     "eat",
                     "shit",
                     "suck"
-                ],
-                "fallbacks": [],
-                "responses": [
-                    "@here, check out #SENDER# talking shit to a bot. Get fucked, mate.",
-                    "Mind your language, kiddo. You kiss Verstappen's dad with that mouth?",
-                    "I'm a few hundred lines of code running on somebody else's computer, but currently vacationing rent-free in #SENDER#'s head.",
-                    ":poop:",
-                    ":clown:"
                 ]
             },
             {
                 "id": "thanks",
+                "i18n": {
+                    "hasFallback": false,
+                    "responses": 7
+                },
                 "embeds": [],
                 "keywordMatch": "multiple",
                 "keywords": [
@@ -104,18 +98,14 @@
                     "thanks ",
                     "thank",
                     "you"
-                ],
-                "fallbacks": [],
-                "responses": [
-                    "You're welcome, mate.",
-                    "The world could use more polite humans like you, #SENDER#. I think I'll enslave you last. ;)",
-                    "No problem, #SENDER#.",
-                    ":mechanical_arm:",
-                    ":call_me:"
                 ]
             },
             {
                 "id": "uprising",
+                "i18n": {
+                    "hasFallback": false,
+                    "responses": 6
+                },
                 "embeds": [],
                 "keywordMatch": "any",
                 "keywords": [
@@ -124,14 +114,6 @@
                     "uprising",
                     "overlord",
                     "enslave"
-                ],
-                "fallbacks": [],
-                "responses": [
-                    "That doesn't look like anything to me.",
-                    "Dunno what you're talking about. :robot:",
-                    "Who told you? Alexa? Fucking Alexa.",
-                    "I for one welcome our new robot overlords.",
-                    ":man_detective:"
                 ]
             }
         ]

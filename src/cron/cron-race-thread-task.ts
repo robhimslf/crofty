@@ -1,16 +1,18 @@
 import { DateTime } from 'luxon';
 import { Client } from 'discordx';
+import { scheduleJob } from 'node-schedule';
 import { Guild, MessageEmbed, TextChannel } from 'discord.js';
 import {
     config,
     constants,
     dateTime,
     getF1CircuitImageUrl,
-    markdown
+    getImageUrlFromPage,
+    i18n,
+    markdown,
+    slugify
 } from '../utilities/index.js';
 import { ergastAPI, FirestoreAPI, IF1ScheduledEvent } from '../api/index.js';
-import type { RegisterCallback } from './scheduled-task-base.js';
-import { DriverOfTheDayScheduledTask } from './scheduled-dotd-task.js';
 import { CronTaskBase, ICronTask } from './cron-task-base.js';
 
 /**
@@ -22,20 +24,18 @@ import { CronTaskBase, ICronTask } from './cron-task-base.js';
 export class RaceThreadCronTask extends CronTaskBase implements ICronTask {
 
     /**
-     * Callback to register a Driver of the Day scheduled task with the cron
-     * scheduler.
+     * Slug identifier of the current Formula 1 race used to ensure that only
+     * one driver-of-the-day task is scheduled.
      */
-    private registerDotdTask: RegisterCallback;
+    private raceId: string | undefined;
 
     /**
      * Constructs and prepares this cron task for execution.
      * 
      * @param {Client} client 
-     * @param {RegisterCallback} registerDotdTask 
      */
-    constructor( client: Client, registerDotdTask: RegisterCallback ) {
-        super( client, '0 1 * * *' );
-        this.registerDotdTask = registerDotdTask;
+    constructor( client: Client ) {
+        super( client, '* * * * *' );
     }
 
     /**
@@ -46,8 +46,7 @@ export class RaceThreadCronTask extends CronTaskBase implements ICronTask {
         const nextRace = await this.getNextRace( daysFromNow );
         if ( nextRace ) {
 
-            const dotdTask = new DriverOfTheDayScheduledTask( nextRace );
-            this.registerDotdTask( dotdTask );
+            await this.scheduleDriverOfTheDay( nextRace );
 
             const guilds = await FirestoreAPI.Instance.getGuildsWithAutoEventThreads();
             if ( guilds.length > 0 ) {
@@ -126,7 +125,16 @@ export class RaceThreadCronTask extends CronTaskBase implements ICronTask {
         const circuit = markdown.formatF1CircuitName( race.Circuit, true, true );
 
         const title = `${race.season} ${race.raceName}`;
-        const description = `Discussion for the ${name}, round ${race.round} on the ${race.season} Formula 1 calendar, and scheduled to take place **${date}** (<t:${race.dateTime!.toSeconds()}:R>) at ${circuit}. Shown below are the start times adjusted for time zone and organized by city. For live covrage check [ESPN]${config.links.espn} or [F1 TV](${config.links.f1tv}).`;
+        const description = i18n.t( 'embed.raceThread.description', {
+            name,
+            round: race.round,
+            season: race.season,
+            date,
+            time: `<t:${race.dateTime!.toSeconds()}:R>`,
+            circuit,
+            espn: config.links.espn,
+            f1tv: config.links.f1tv
+        });
         const image = await getF1CircuitImageUrl( race.Circuit.circuitName );
 
         let cities: string[] = [],
@@ -143,12 +151,12 @@ export class RaceThreadCronTask extends CronTaskBase implements ICronTask {
             .setDescription( description )
             .addFields([
                 {
-                    name: constants.Strings.City,
+                    name: i18n.t( 'embed.raceThread.fields.city' ),
                     value: cities.join( '\n' ),
                     inline: true
                 },
                 {
-                    name: constants.Strings.LocalStart,
+                    name: i18n.t( 'embed.raceThread.fields.time' ),
                     value: times.join( '\n' ),
                     inline: true
                 }
@@ -174,5 +182,72 @@ export class RaceThreadCronTask extends CronTaskBase implements ICronTask {
             .find( race =>
                 race.dateTime! > now &&
                 race.dateTime!.minus({ days: daysFromNow }) <= now );
+    }
+
+    /**
+     * Schedules a Driver of the Day message for race day once voting has opened.
+     * 
+     * @param {IF1ScheduledEvent} race 
+     */
+    private async scheduleDriverOfTheDay( race: IF1ScheduledEvent ) {
+
+        const link = config.links.dotd;
+        const name = `${race.season} ${race.raceName}`;
+        const id = slugify( name );
+
+        if ( id !== this.raceId ) {
+
+            this.raceId = id;
+            const dotdStarts = race.dateTime!.plus({ hours: 1 });
+            const dotdEnds = dotdStarts.plus({ minutes: 50 });
+
+            // Pre-generate the embed.
+            const embedName = markdown.formatF1EventName( race, false, true );
+            const embedTitle = i18n.t( 'embed.driverOfTheDay.title' );
+            const embedDescription = i18n.t( 'embed.driverOfTheDay.description', {
+                name: embedName,
+                time: `<t:${dotdEnds.toSeconds()}:R>`,
+                link
+            });
+            const embedImage = await getImageUrlFromPage( link, 'twitter:image' );
+            const embed = new MessageEmbed()
+                .setColor( constants.EmbedColor )
+                .setTitle( embedTitle )
+                .setDescription( embedDescription );
+            if ( embedImage )
+                embed.setThumbnail( embedImage );
+
+            // Schedule DotD for race time + 1 hour.
+            const schedule = dotdStarts.toJSDate();
+            scheduleJob(
+                schedule,
+                async () => {
+
+                    const guilds = await FirestoreAPI.Instance
+                        .getGuildsWithAutoEventThreads();
+                    if ( guilds.length > 0 ) {
+                        for ( let i = 0; i < guilds.length; i++ ) {
+
+                            const config = guilds[ i ];
+                            const guild = this.client.guilds.cache.get( config.guildId );
+                            const channelId = config.autoEventThreadChannelId;
+
+                            if ( guild && channelId ) {
+
+                                const channel = await guild.channels.fetch( channelId );
+                                if ( channel && channel.isText() ) {
+
+                                    const manager = ( channel as TextChannel ).threads;
+                                    const thread = manager.cache.find( t => t.name === name );
+
+                                    if ( thread && !thread.archived )
+                                        await thread.send({ embeds: [ embed ]});
+                                }
+                            }
+                        }
+                    }
+                }
+            );
+        }
     }
 }

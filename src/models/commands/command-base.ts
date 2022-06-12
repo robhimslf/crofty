@@ -157,4 +157,42 @@ export abstract class CommandBase {
 
         this.addEmbed( embed );
     }
+
+    /**
+     * Sets the reply content for a user error.
+     * 
+     * @param {string} message 
+     */
+    reportError( message: string ) {
+        this.replyContent = `👎 **Command failed.**\n${message}`;
+    }
+
+    /**
+     * Sets the reply content for a successful operation.
+     * 
+     * @param {string} type
+     * @param {string} message 
+     */
+    reportSuccess( type: 'success' | 'nochange', message: string ) {
+        let prefix = 'Command succeeded.';
+        if ( type === 'nochange' )
+            prefix = 'Operation finished, but no change was necessary.';
+
+        this.replyContent = `👍 **${prefix}**\n${message}`;
+    }
+
+    /**
+     * Sets the reply content reporting the status of an operation.
+     * 
+     * @param {string} message 
+     * @param {boolean} nochange 
+     * @param {boolean} error 
+     */
+    reportStatus(
+        message: string,
+        error: boolean = false ) {
+        
+        const emoji = error ? '⚠️' : '✅';
+        this.replyContent = `${emoji} ${message}`;
+    }
 }

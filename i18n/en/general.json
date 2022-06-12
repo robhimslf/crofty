@@ -1,0 +1,101 @@
+{
+    "_abbrev": "Abbreviation translations.",
+    "abbrev": {
+        "didNotFinish": "DNF",
+        "didNotQualify": "DNQ"
+    },
+
+    "_command": "Command response translations.",
+    "command": {
+        "mustRunInServer": "This command must be run from a channel in a server on which I'm installed.",
+        "failedServerUpdate": "I failed to create or update the server preferences",
+        "memberAutotag": {
+            "notConfigured": "An admin must enable auto-creation of grand prix threads on this server before I can record your preference.",
+            "misconfigured": "An admin must correct the configuration of auto-creation of grand prix threads before I can record your preference.",
+            "failed": "I failed to create or update your preferences.",
+            "disabled": "You __will not be automatically tagged__ when I create new grand prix threads in the {{channel}} channel.",
+            "enabled": "You __will be automatically tagged__ when I create new grand prix threads in the {{channel}} channel."
+        },
+        "serverAutonews": {
+            "invalidParams": "I expect one or both of the 'enabled' and/or 'channel' parameters.",
+            "invalidChannel": "I couldn't find a channel with the name \"{{channel}}\".",
+            "invalidTextChannel": "{{channel}} is not a valid *text* channel.",
+            "enabled": "I __will automatically report daily Formula 1 news__ to the {{channel}} channel.",
+            "enabledNoChannel": "I __will automatically report daily Formula 1 news__ once you've set a parent text channel. Run `/config server autonews` and provide the 'channel' parameter.",
+            "disabled": "I __will not automatically report daily Formula 1 news__, and it will no longer appear in the {{channel}} channel."
+        },
+        "serverAutothread": {
+            "invalidParams": "I expect one or both of the 'enabled' and/or 'channel' parameters.",
+            "invalidChannel": "I couldn't find a channel with the name \"{{channel}}\".",
+            "invalidTextChannel": "{{channel}} is not a valid *text* channel.",
+            "enabled": "I __will automatically create Formula 1 grand prix threads__ in the {{channel}} channel.",
+            "enabledNoChannel": "I __will automatically create Formula 1 grand prix threads__ once you've set a parent text channel. Run `/config server autothread` and provide the 'channel' parameter.",
+            "disabled": "I __will not automatically create Formula 1 grand prix threads__, and it will no longer appear in the {{channel}} channel."
+        }
+    },
+
+    "_common": "Common word or phrase translations.",
+    "common": {
+        "admin": "Admin",
+        "city": "City",
+        "currentTime": "Current Time",
+        "fallbackResponse": "Oh dear. I seem to have encountered an issue. Maybe give it another go?",
+        "localStart": "Local Start",
+        "wc": "Formula 1 World Championship",
+        "wcc": "Formula 1 World Constructors' Championship",
+        "wdc": "Formula 1 World Drivers' Championship"
+    },
+
+    "_denotation": "Statistic denotation translations used in footers.",
+    "denotation": {
+        "fastestLap": "🔸Fastest Lap",
+        "qualifying": "🔹Q2 Knockout |🔺Q1 Knockout"
+    },
+
+    "_embed": "Discord embed translations.",
+    "embed": {
+        "configList": {
+            "title": "Configuration",
+            "fields": {
+                "setting": "Setting",
+                "value": "Value",
+                "appliesTo": "Applies To"
+            }
+        },
+        "currentTime": {
+            "fields": {
+                "city": "City",
+                "time": "Current Time"
+            }
+        },
+        "driverOfTheDay": {
+            "title": "Driver of the Day Voting is Open",
+            "description": "Voting for the {{name}} Driver of the Day is now open, and close(s/ed) {{time}}.\n\n[**Vote for Driver of the Day**]({{link}})"
+        },
+        "news": {
+            "title": "Formula 1 News for {{date}}",
+            "description": "As reported in the last day from {{sources}}."
+        },
+        "raceStart": {
+            "title": "{{name}} Localized Start Times",
+            "description": "The {{name}} is on **{{date}}** ({{time}}). Shown below are the start times adjusted for time zone and organized by city. For live coverage check [ESPN]({{espn}}) or [F1 TV]({{f1tv}}).",
+            "fields": {
+                "city": "City",
+                "time": "Local Start"
+            }
+        },
+        "raceThread": {
+            "description": "Discussion for the {{name}}, round {{round}} on the {{season}} Formula 1 calendar. Scheduled to take place **{{date}}** ({{time}}) at {{circuit}}.\n\nShown below are the race start times adjusted for time zone. For live coverage check [ESPN]({{espn}}) or [F1 TV]({{f1tv}}).",
+            "fields": {
+                "city": "City",
+                "time": "Local Start"
+            }
+        }
+    },
+
+    "_validation": "Command validation message translations.",
+    "validation": {
+        "invalidRound": "The provided round value is invalid. Try a 1- or 2-digit number or the word 'last'.",
+        "invalidSeason": "The provided season value is invalid. Try a 4-digit year or the word 'current'."
+    }
+}

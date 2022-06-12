@@ -2,7 +2,12 @@ import { DateTime } from 'luxon';
 import { Client } from 'discordx';
 import { EmbedFieldData, Guild, MessageEmbed } from 'discord.js';
 import Parser from 'rss-parser';
-import { config, constants, dateTime, interpolate } from '../utilities/index.js';
+import {
+    config,
+    constants,
+    dateTime,
+    i18n
+} from '../utilities/index.js';
 import { FirestoreAPI } from '../api/index.js';
 import { CronTaskBase, ICronTask } from './cron-task-base.js';
 
@@ -75,22 +80,14 @@ export class NewsCronTask extends CronTaskBase implements ICronTask {
      * @returns {MessageEmbed}
      */
     private getNewsEmbed( items: INewsItem[] ): MessageEmbed {
-        let includedSources = '',
+        let includedSources: string[] = [],
             fields: EmbedFieldData[] = [];
 
         config.news.sources.forEach(( source, idx ) => {
-            const name = `[${source.name}](${source.homepage})`;
-            
-            let delim = ',';
-            if ( idx === config.news.sources.length - 1 )
-                delim = ', and';
-
-            includedSources += ( idx === 0 )
-                ? name
-                : `${delim} ${name}`;
-
             const sourceItems = items.filter( i => i.feed === source.name );
             if ( sourceItems.length > 0 ) {
+                includedSources.push( `[${source.name}](${source.homepage})` );
+
                 const value = sourceItems
                     .map( si => `• [${si.title}](${si.url}) *- <t:${si.published.toSeconds()}:R>*` )
                     .join( '\n' );
@@ -101,14 +98,30 @@ export class NewsCronTask extends CronTaskBase implements ICronTask {
             }
         });
 
+        let includedSourcesStr = '';
+        includedSources.forEach(( incSrc, idx ) => {
+            let delim = ',';
+
+            if ( idx === includedSources.length - 1 )
+                delim = ', and';
+
+            includedSourcesStr += ( idx === 0 )
+                ? incSrc
+                : `${delim} ${incSrc}`;
+        });
+
+        const title = i18n.t( 'embed.news.title', {
+            date: DateTime.utc().toLocaleString( DateTime.DATE_MED )
+        });
+
+        const description = i18n.t( 'embed.news.description', {
+            sources: includedSourcesStr
+        });
+
         return new MessageEmbed()
             .setColor( constants.EmbedColor )
-            .setTitle( interpolate(
-                constants.Strings.EmbedTitleNews,
-                { date: DateTime.utc().toLocaleString( DateTime.DATE_MED )}))
-            .setDescription( interpolate(
-                constants.Strings.EmbedDescriptionNews,
-                { sources: includedSources }))
+            .setTitle( title )
+            .setDescription( description )
             .addFields( fields );
     }
 

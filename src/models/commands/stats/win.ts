@@ -99,7 +99,7 @@ export class WinStats extends CommandBase implements ICommandAsync {
         const events = items.map( i =>
             markdown.formatF1EventName( i, true, true, true ));
         const drivers = items.map( i =>
-            `${markdown.formatF1DriverName( i.Results[ 0 ].Driver, true )}, ${markdown.formatF1ConstructorName( i.Results[ 0 ].Constructor, true )}` );
+            `${markdown.formatF1DriverName( i.Results[ 0 ].Driver, true, true )}, ${markdown.formatF1ConstructorName( i.Results[ 0 ].Constructor, true )}` );
         const times = items.map( i =>
             markdown.formatF1RaceTime( i.Results[ 0 ], withFastestLap ));
 

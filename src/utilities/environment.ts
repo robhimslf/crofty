@@ -2,13 +2,13 @@
 export class Environment {
 
     /**
-     * Discord username of Crofty's developer, or the administrator of a server
-     * on which Crofty is installed.
+     * Discord username of the administrator of a server on which Crofty is
+     * installed.
      * 
      * *Sensitive environment variable.*
      */
-    get BotDev(): string | undefined {
-        return process.env[ 'BOT_DEV' ];
+    get ServerAdmin(): string | undefined {
+        return process.env[ 'SERVER_ADMIN' ];
     }
 
     /**
@@ -129,13 +129,27 @@ export class Environment {
     }
 
     /**
+     * Crofty's API key for Tenor.
+     */
+    get TenorKey(): string | undefined {
+        return process.env[ 'TENOR_KEY' ];
+    }
+
+    /**
+     * Crofty's client ID for Tenor.
+     */
+    get TenorClientId(): string | undefined {
+        return process.env[ 'TENOR_CLIENT_ID' ];
+    }
+
+    /**
      * Helper method to validate the presence of Crofty's sensitive environment
      * variables. This should be called at `crofty.ts` in the `run` method just
      * before authenticating with Discord.
      */
     validate(): void {
-        if ( !this.BotDev )
-            throw new Error( `🛑 Crofty requires a populated 'BOT_DEV' environment variable.` );
+        if ( !this.ServerAdmin )
+            throw new Error( `🛑 Crofty requires a populated 'SERVER_ADMIN' environment variable.` );
 
         if ( !this.BotToken )
             throw new Error( `🛑 Crofty requires a populated 'BOT_TOKEN' environment variable.` );
@@ -169,6 +183,12 @@ export class Environment {
 
         if ( !this.FirebasePrivateKeyId )
             throw new Error( `🛑 Crofty requires a populated 'FIREBASE_PRIVATE_KEY_ID' environment variable.` );
+
+        if ( !this.TenorClientId )
+            throw new Error( `🛑 Crofty requires a populated 'TENOR_CLIENT_ID' environment variable.` );
+
+        if ( !this.TenorKey )
+            throw new Error( `🛑 Crofty requires a populated 'TENOR_KEY' environment variable.` );
     }
 }
 

@@ -5,6 +5,7 @@ import {
     SlashGroup,
     SlashOption
 } from 'discordx';
+import { strings } from '../utilities/index.js';
 import {
     DriverQualiStats,
     DriverRaceStats,
@@ -46,14 +47,19 @@ class stats {
         if ( query.reply )
             return await interaction.reply( query.reply );
 
+        await interaction.reply( strings.getString( 'pleaseWaitQuery' ));
         await interaction.channel?.sendTyping();
-        await query.prepare();
+        try {
+            await query.prepare();
 
-        const pagination = query.paginationReply;
-        if ( pagination )
-            return await pagination.send();
+            const pagination = query.paginationReply;
+            if ( pagination )
+                return await pagination.send();
+        } catch ( err ) {
+            console.warn( 'Failed `/stats driver quali` command.', err );
+        }
         
-        await interaction.reply( query.reply! );
+        await interaction.reply( query.fallbackReply );
     }
 
     /**
@@ -74,6 +80,7 @@ class stats {
         if ( query.reply )
             return await interaction.reply( query.reply );
 
+        await interaction.reply( strings.getString( 'pleaseWaitQuery' ));
         await interaction.channel?.sendTyping();
         try {
             await query.prepare();
@@ -85,7 +92,7 @@ class stats {
             console.warn( 'Failed `/stats driver races` command.', err );
         }
         
-        await interaction.reply( query.reply! );
+        await interaction.reply( query.fallbackReply );
     }
 
     /**
@@ -104,6 +111,7 @@ class stats {
         if ( query.reply )
             return await interaction.reply( query.reply );
 
+        await interaction.reply( strings.getString( 'pleaseWaitQuery' ));
         await interaction.channel?.sendTyping();
         try {
             await query.prepare();
@@ -115,7 +123,7 @@ class stats {
             console.warn( 'Failed `/stats poles` command.', err );
         }
         
-        await interaction.reply( query.reply! );
+        await interaction.reply( query.fallbackReply );
     }
 
     /**
@@ -136,6 +144,7 @@ class stats {
         if ( query.reply )
             return await interaction.reply( query.reply );
 
+        await interaction.reply( strings.getString( 'pleaseWaitQuery' ));
         await interaction.channel?.sendTyping();
         try {
             await query.prepare();
@@ -147,7 +156,7 @@ class stats {
             console.warn( 'Failed `/stats quali` command.', err );
         }
         
-        await interaction.reply( query.reply! );
+        await interaction.reply( query.fallbackReply );
     }
 
     /**
@@ -157,7 +166,7 @@ class stats {
      * @param {string} driverParam 
      * @param {CommandInteraction} interaction 
      */
-    @Slash( 'races', { description: `Formula 1 race results by round and season (1950 to current).` })
+    @Slash( 'race', { description: `Formula 1 grand prix results by round and season (1950 to current).` })
     @SlashGroup( 'stats' )
     async rootRaces(
         @SlashOption( 'season', { description: `4-digit year or 'current'.`, required: true }) seasonParam: string,
@@ -168,6 +177,7 @@ class stats {
         if ( query.reply )
             return await interaction.reply( query.reply );
 
+        await interaction.reply( strings.getString( 'pleaseWaitQuery' ));
         await interaction.channel?.sendTyping();
         try {
             await query.prepare();
@@ -179,7 +189,7 @@ class stats {
             console.warn( 'Failed `/stats race` command.', err );
         }
         
-        await interaction.reply( query.reply! );
+        await interaction.reply( query.fallbackReply );
     }
 
     /**
@@ -198,6 +208,7 @@ class stats {
         if ( query.reply )
             return await interaction.reply( query.reply );
 
+        await interaction.reply( strings.getString( 'pleaseWaitQuery' ));
         await interaction.channel?.sendTyping();
         try {
             await query.prepare();
@@ -209,6 +220,6 @@ class stats {
             console.warn( 'Failed `/stats wins` command.', err );
         }
         
-        await interaction.reply( query.reply! );
+        await interaction.reply( query.fallbackReply );
     }
 }

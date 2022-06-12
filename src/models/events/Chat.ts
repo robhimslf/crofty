@@ -6,6 +6,7 @@ import {
     config,
     constants,
     dateTime,
+    i18n,
     IConfigChatPattern,
     interpolate,
     interpolateFromMessage,
@@ -55,17 +56,14 @@ export class Chat {
 
             // Pick a random response.
             const responseIdx = Math.floor( Math.random() *
-                fuzzyPattern.responses.length );
-            const responseContent = fuzzyPattern.responses[ responseIdx ];
+                fuzzyPattern.i18n.responses );
+            const responseKey = `${fuzzyPattern.id}.responses.${responseIdx}`;
 
-            // Pick a random fallback.
-            let fallbackContent = '',
+            // Determine fallback.
+            let fallbackKey = 'fallback',
                 useFallback = false;
-            if ( fuzzyPattern.fallbacks.length > 0 ) {
-                const fallbackIdx = Math.floor( Math.random() *
-                    fuzzyPattern.fallbacks.length );
-                fallbackContent = fuzzyPattern.fallbacks[ fallbackIdx ];
-            }
+            if ( fuzzyPattern.i18n.hasFallback )
+                fallbackKey = `${fuzzyPattern.id}.fallback`;
 
             // Check for embeds.
             if ( fuzzyPattern.embeds.length > 0 ) {
@@ -86,8 +84,8 @@ export class Chat {
             }
 
             content = ( useFallback )
-                ? interpolateFromMessage( fallbackContent, this.received )
-                : interpolateFromMessage( responseContent, this.received );
+                ? i18n.t( 'chat', fallbackKey, this.received )
+                : i18n.t( 'chat', responseKey, this.received );
         }
 
         this.reply = {
@@ -121,12 +119,12 @@ export class Chat {
             .setColor( constants.EmbedColor )
             .addFields([
                 {
-                    name: constants.Strings.City,
+                    name: i18n.t( 'embed.currentTime.fields.city' ),
                     value: cities.join( '\n' ),
                     inline: true
                 },
                 {
-                    name: constants.Strings.CurrentTime,
+                    name: i18n.t( 'embed.currentTime.fields.time' ),
                     value: times.join( '\n' ),
                     inline: true
                 }
@@ -158,13 +156,16 @@ export class Chat {
         if ( !nextRace )
             return undefined;
 
-        let descValues = {
-            espnLink: config.links.espn,
-            f1tvLink: config.links.f1tv,
-            raceName: markdown.formatF1EventName( nextRace ),
-            raceDate: markdown.formatF1EventDate( nextRace ),
-            raceTime: `<t:${nextRace.dateTime!.toSeconds()}:R>`,
-            year: now.year.toString(),
+        const titleValues = {
+            name: `${nextRace.season} ${nextRace.raceName}`
+        };
+
+        const descValues = {
+            name: markdown.formatF1EventName( nextRace ),
+            date: markdown.formatF1EventDate( nextRace ),
+            time: `<t:${nextRace.dateTime!.toSeconds()}:R>`,
+            espn: config.links.espn,
+            f1tv: config.links.f1tv
         };
 
         let cities: string[] = [],
@@ -177,16 +178,16 @@ export class Chat {
 
         return new MessageEmbed()
             .setColor( constants.EmbedColor )
-            .setDescription( interpolate(
-                constants.Strings.EmbedDescriptionRaceStart, descValues ))
+            .setTitle( i18n.t( 'embed.raceStart.title', titleValues ))
+            .setDescription( i18n.t( 'embed.raceStart.description', descValues ))
             .addFields([
                 {
-                    name: constants.Strings.City,
+                    name: i18n.t( 'embed.raceStart.fields.city' ),
                     value: cities.join( '\n' ),
                     inline: true
                 },
                 {
-                    name: constants.Strings.LocalStart,
+                    name: i18n.t( 'embed.raceStart.fields.time' ),
                     value: times.join( '\n' ),
                     inline: true
                 }

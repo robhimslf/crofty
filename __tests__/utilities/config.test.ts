@@ -1,4 +1,4 @@
-import { Config, config } from '../../src/utilities/config';
+import { Config, config } from '../../src/utilities/config.js';
 
 describe( 'utilities/config', () => {
     test( 'should construct from file', () => {
