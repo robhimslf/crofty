@@ -55,7 +55,7 @@ export const interpolateFromMessage = ( stringVal: string, message: Message ): s
 
             switch ( t ) {
                 case DEV: {
-                    const dev = getGuildMember( environment.BotDev!, message );
+                    const dev = getGuildMember( environment.ServerAdmin!, message );
                     replacement = ( dev )
                         ? `<@${dev.id}>`
                         : 'my creator';

@@ -181,7 +181,7 @@ export class I18n {
                     addPath,
                     loadPath
                 },
-                debug: true,
+                debug: false,
                 ns: [ 'chat', 'general' ],
                 defaultNS: 'general',
                 supportedLngs: [ 'en' ],

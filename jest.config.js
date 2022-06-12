@@ -1,6 +1,7 @@
+"use strict";
 const config = {
     preset: 'ts-jest/presets/default-esm',
-    extensionsToTreatAsEsm: [ '.ts' ],
+    extensionsToTreatAsEsm: ['.ts'],
     globals: {
         'ts-jest': {
             useESM: true
@@ -16,5 +17,4 @@ const config = {
         '^.+\\.ts?$': 'ts-jest'
     }
 };
-
 module.exports = config;
