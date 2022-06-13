@@ -12,16 +12,16 @@
     "type": "module",
     "main": "build/crofty.js",
     "scripts": {
-        "build": "tsc",
+        "postinstall": "tsc",
         "dev": "node --loader ts-node/esm/transpile-only src/crofty.ts",
         "serve": "node build/crofty.js",
-        "start": "nodemon --exec node --loader ts-node/esm/transpile-only src/crofty.ts",
+        "start-node": "nodemon --exec node --loader ts-node/esm/transpile-only src/crofty.ts",
         "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js"
     },
     "engines": {
-        "node": "16.x",
-        "npm": "7.x",
-        "yarn": "1.x"
+        "node": "16.13.0",
+        "npm": "8.1.0",
+        "yarn": "1.22.15"
     },
     "dependencies": {
         "@discordx/importer": "^1.1.9",
