@@ -11,8 +11,12 @@
         "emitDecoratorMetadata": true,
         "skipLibCheck": false,
         "forceConsistentCasingInFileNames": true,
-        "resolveJsonModule": true
+        "resolveJsonModule": true,
+        "traceResolution": true
     },
+    "include": [
+        "src/**/*.ts"
+    ],
     "exclude": [
         "__tests__"
     ]
