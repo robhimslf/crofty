@@ -1,11 +1,14 @@
 import path from 'path';
 import i18next from 'i18next';
+import { createRequire } from 'module';
 import type { TFunction } from 'i18next';
 import { Message } from 'discord.js';
 import { environment } from './environment.js';
 import { getGuildMember } from './disco.js';
-import enChat from '../i18n/en/chat.json';
-import enGeneral from '../i18n/en/general.json';
+
+const require = createRequire( import.meta.url );
+const enChat = require( '../i18n/en/chat.json' );
+const enGeneral = require( '../i18n/en/general.json' );
 
 type GenericObject = {
     [ key: string ]: any
