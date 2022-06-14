@@ -1,10 +1,11 @@
 import path from 'path';
 import i18next from 'i18next';
 import type { TFunction } from 'i18next';
-import Backend from 'i18next-fs-backend';
 import { Message } from 'discord.js';
 import { environment } from './environment.js';
 import { getGuildMember } from './disco.js';
+import enChat from '../i18n/en/chat.json';
+import enGeneral from '../i18n/en/general.json';
 
 type GenericObject = {
     [ key: string ]: any
@@ -175,11 +176,12 @@ export class I18n {
             .replace( 'file:\\', '' );
 
         i18next
-            .use( Backend )
             .init({
-                backend: {
-                    addPath,
-                    loadPath
+                resources: {
+                    en: {
+                        chat: enChat,
+                        general: enGeneral
+                    }
                 },
                 debug: false,
                 ns: [ 'chat', 'general' ],
