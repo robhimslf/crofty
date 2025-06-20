@@ -1,24 +1,26 @@
 {
     "compilerOptions": {
-        "target": "esnext",
-        "module": "esnext",
-        "outDir": "./build",
+        "target": "es2021",
+        "module": "es2022",
+        "lib": [
+            "es2021"
+        ],
+        "declaration": true,
+        "sourceMap": true,
+        "outDir": "./dist",
         "rootDir": "./src",
-        "strict": true,
+        "strict": false,
+        "moduleResolution": "node",
         "esModuleInterop": true,
-        "moduleResolution": "Node",
         "experimentalDecorators": true,
         "emitDecoratorMetadata": true,
-        "skipLibCheck": false,
-        "forceConsistentCasingInFileNames": true,
-        "resolveJsonModule": true,
-        "traceResolution": true
+        "skipLibCheck": true,
+        "forceConsistentCasingInFileNames": true
     },
-    "include": [
-        "src/**/*.ts",
-        "src/**/*.json"
-    ],
     "exclude": [
-        "__tests__"
+        "dist",
+        "node_modules",
+        "tests",
+        "vitest.config.ts"
     ]
 }

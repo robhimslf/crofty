@@ -1,0 +1,77 @@
+{
+    "error": {
+        "api_rate_limit": "A rate limit was hit while making a request.",
+        "api_request": "An error occurred while processing a '{HTTP_METHOD}' request to '{URL}'.",
+
+        "autocomplete_other": "[{INTERACTION_ID}] An error occurred while autocompleting the '{OPTION_NAME}' option for the '{COMMAND_NAME}' command for user '{USER_TAG}' ({USER_ID}).",        
+        "autocomplete_guild": "[{INTERACTION_ID}] An error occurred while autocompleting the '{OPTION_NAME}' option for the '{COMMAND_NAME}' command for user '{USER_TAG}' ({USER_ID}) in channel '{CHANNEL_NAME}' ({CHANNEL_ID}) in guild '{GUILD_NAME}' ({GUILD_ID}).",
+        "autocomplete_not_found": "[{INTERACTION_ID}] An autocomplete method for the '{COMMAND_NAME}' command could not be found.",
+
+        "button": "An error occurred while processing a button interaction.",
+
+        "client_login": "An error occurred while the client attempted to login.",
+        
+        "command": "An error occurred while processing a command interaction.",
+        "command_action": "An error occurred while running a command action.",
+        "command_action_delete_missing_arg": "Please supply a command name to delete.",
+        "command_action_not_found": "Could not find a command with the name '{COMMAND_NAME}'.",
+        "command_action_rename_missing_arg": "Please supply the current command name and new command name.",
+        "command_guild": "[{INTERACTION_ID}] An error occurred while executing the '{COMMAND_NAME}' command for user '{USER_TAG}' ({USER_ID}) in channel '{CHANNEL_NAME}' ({CHANNEL_ID}) in guild '{GUILD_NAME}' ({GUILD_ID}).",
+        "command_not_found": "[{INTERACTION_ID}] A command with the name '{COMMAND_NAME}' could not be found.",
+        "command_other": "[{INTERACTION_ID}] An error occurred while executing the '{COMMAND_NAME}' command for user '{USER_TAG}' ({USER_ID}).",
+
+        "guild_join": "An error occurred while processing a guild join.",
+        "guild_leave": "An error occurred while processing a guild leave.",
+        
+        "job": "An error occurred while running the '{JOB}' job.",
+
+        "manager_spawning_shards": "An error occurred while spawning shards.",
+        "manager_shard_info": "An error occurred while retrieving shard info.",
+
+        "message": "An error occurred while processing a message.",
+        "reaction": "An error occurred while processing a reaction.",
+        "retrieve_shards": "An error occurred while retrieving which shards to spawn.",
+        "unhandled_rejection": "An unhandled promise rejection occurred.",
+        "unspecified": "An unspecified error occurred.",
+
+        "updated_server_count_site": "An error occurred while updating the server count on '{BOT_SITE}'."
+    },
+
+    "info": {
+        "api_started": "API started successfully on port {PORT}.",
+        "app_started": "Application started successfully.",
+
+        "client_login": "Client logged in as '{USER_TAG}'.",
+        "client_ready": "Client is ready!",
+        
+        "command_action_clearing": "Deleting all commands: {COMMAND_LIST}",
+        "command_action_cleared": "Commands deleted.",
+        "command_action_creating": "Creating commands: {COMMAND_LIST}",
+        "command_action_created": "Commands created.",
+        "command_action_deleting": "Deleting command: '{COMMAND_NAME}'",
+        "command_action_deleted": "Command deleted.",
+        "command_action_renaming": "Renaming command: '{OLD_COMMAND_NAME}' --> '{NEW_COMMAND_NAME}'",
+        "command_action_renamed": "Command renamed.",
+        "command_action_updating": "Updating commands: {COMMAND_LIST}",
+        "command_action_updated": "Commands updated.",
+        "command_action_view": "\nLocal and remote:\n    {LOCAL_AND_REMOTE_LIST}\nLocal only:\n    {LOCAL_ONLY_LIST}\nRemote only:\n    {REMOTE_ONLY_LIST}",
+
+        "guild_joined": "Guild '{GUILD_NAME}' ({GUILD_ID}) joined.",
+        "guild_left": "Guild '{GUILD_NAME}' ({GUILD_ID}) left.",
+
+        "job_completed": "Job '{JOB}' completed.",
+        "job_run": "Running job '{JOB}'.",
+        "job_scheduled": "Scheduled job '{JOB}' for '{SCHEDULE}'.",
+        
+        "manager_all_shards_spawned": "All shards have been spawned.",
+        "manager_launched_shard": "Launched Shard {SHARD_ID}.",
+        "manager_spawning_shards": "Spawning {SHARD_COUNT} shards: [{SHARD_LIST}].",
+        
+        "updated_server_count": "Updated server count. Connected to {SERVER_COUNT} total servers.",
+        "updated_server_count_site": "Updated server count on '{BOT_SITE}'."
+    },
+
+    "warn": {
+        "manager_no_shards": "No shards to spawn."
+    }
+}

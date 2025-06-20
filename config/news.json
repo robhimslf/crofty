@@ -1,0 +1,34 @@
+{
+    "f1": [
+        {
+            "name": "Beyond the Flag",
+            "dateType": "rfc2822",
+            "homepage": "https://beyondtheflag.com/formula-one/",
+            "rssFeed": "https://beyondtheflag.com/formula-one/feed/"
+        },
+        {
+            "name": "BBC Sport",
+            "dateType": "rfc2822",
+            "homepage": "http://www.bbc.co.uk/sport/",
+            "rssFeed": "https://feeds.bbci.co.uk/sport/formula1/rss.xml"
+        },
+        {
+            "name": "F1Technical",
+            "dateType": "rfc2822",
+            "homepage": "https://www.f1technical.net/news/",
+            "rssFeed": "https://www.f1technical.net/rss/news.xml"
+        },
+        {
+            "name": "NY Times",
+            "dateType": "rfc2822",
+            "homepage": "https://www.nytimes.com/topic/organization/formula-one",
+            "rssFeed": "https://www.nytimes.com/svc/collections/v1/publish/https://www.nytimes.com/topic/organization/formula-one/rss.xml"
+        },
+        {
+            "name": "Racer",
+            "dateType": "rfc2822",
+            "homepage": "https://racer.com/f1/",
+            "rssFeed": "https://racer.com/f1/feed/"
+        }
+    ]
+}

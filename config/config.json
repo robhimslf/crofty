@@ -1,0 +1,79 @@
+{
+    "developers": [],
+    "api": {
+        "port": 3001,
+        "secret": ""
+    },
+    "client": {
+        "id": "",
+        "token": "",
+        "intents": [
+            "Guilds",
+            "GuildMessages",
+            "GuildMessageReactions",
+            "DirectMessages",
+            "DirectMessageReactions"
+        ],
+        "partials": [
+            "Channel",
+            "Message",
+            "Reaction"
+        ],
+        "caches": {
+            "AutoModerationRuleManager": 0,
+            "BaseGuildEmojiManager": 0,
+            "GuildEmojiManager": 0,
+            "GuildBanManager": 0,
+            "GuildInviteManager": 0,
+            "GuildScheduledEventManager": 0,
+            "GuildStickerManager": 0,
+            "MessageManager": 0,
+            "PresenceManager": 0,
+            "StageInstanceManager": 0,
+            "ThreadManager": 0,
+            "ThreadMemberManager": 0,
+            "VoiceStateManager": 0
+        }
+    },
+    "clustering": {
+        "enabled": false,
+        "count": 16,
+        "callbackUrl": "http://localhost:3001/",
+        "controllerApi": {
+            "url": "http://localhost:5000/",
+            "token": ""
+        }
+    },
+    "sharding": {
+        "spawnDelay": 5000,
+        "spawnTimeout": 300000,
+        "serversPerShard": 1000
+    },
+    "jobs": {
+
+    },
+    "rateLimiting": {
+        "commands": {
+            "amount": 10,
+            "interval": 30000
+        },
+        "buttons": {
+            "amount": 10,
+            "interval": 30000
+        },
+        "triggers": {
+            "amount": 10,
+            "interval": 30000
+        },
+        "reactions": {
+            "amount": 10,
+            "interval": 30000
+        }
+    },
+    "logging": {
+        "pretty": true,
+        "rateLimit": {
+            "minTimeout": 30000
+        }
+    }
+}
